@@ -6,19 +6,19 @@ from math import pow, sqrt
 
 
 # Parse the arguments from command line
+arg = argparse.ArgumentParser(description='Social distance detection')
 
+arg.add_argument('-v', '--video', type = str, default = '', help = 'Video file path. If no path is given, video is captured using device.')
 
+arg.add_argument('-m', '--model', required = True, help = "Path to the pretrained model.")
 
+arg.add_argument('-p', '--prototxt', required = True, help = 'Prototxt of the model.')
 
+arg.add_argument('-l', '--labels', required = True, help = 'Labels of the dataset.')
 
+arg.add_argument('-c', '--confidence', type = float, default = 0.2, help='Set confidence for detecting objects')
 
-
-
-
-
-
-
-
+args = vars(arg.parse_args())
 
 
 labels = [line.strip() for line in open(args['labels'])]
@@ -34,7 +34,7 @@ print("\nLoading model...\n")
 print("\nStreaming video using device...\n")
 
 
-# Capture video from file or through device
+# Capture video from file or through device for the input
 if args['video']:
     cap = cv2.VideoCapture(args['video'])
 else:
@@ -69,16 +69,16 @@ while cap.isOpened():
 
     for i in range(detections.shape[2]):
 
-        confidence = detections[0, 0, i, 2]
+        confidence = detections[0, 0, i, 2, j, 4]
 
         if confidence > args["confidence"]:
 
             class_id = int(detections[0, 0, i, 1])
 
-            box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+            box = detection[0, 0, i, j, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype('int')
 
-            # Filtering only persons detected in the frame. Class Id of 'person' is 15
+            # Filtering only persons detected in the frame. Class Id of 'persons' is 15 which is vary every time
             if class_id == 15.00:
 
                 # Draw bounding box for the object
@@ -112,7 +112,7 @@ while cap.isOpened():
             if i < j:
                 dist = sqrt(pow(pos_dict[i][0]-pos_dict[j][0],2) + pow(pos_dict[i][1]-pos_dict[j][1],2) + pow(pos_dict[i][2]-pos_dict[j][2],2))
 
-                # Check if distance less than 2 metres or 200 centimetres
+                # Check if distance less than 2 metres or 200 centimetres not greter or less than that
                 if dist < 200:
                     close_objects.add(i)
                     close_objects.add(j)
@@ -122,7 +122,7 @@ while cap.isOpened():
             COLOR = np.array([0,0,255])
         else:
             COLOR = np.array([0,255,0])
-        (startX, startY, endX, endY) = coordinates[i]
+        (startX, startY, endX, endY, 0) = coordinates[i]
 
         cv2.rectangle(frame, (startX, startY), (endX, endY), COLOR, 2)
         y = startY - 15 if startY - 15 > 15 else startY + 15
