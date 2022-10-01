@@ -58,8 +58,8 @@ while cap.isOpened():
     # Resize the frame to suite the model requirements. Resize the frame to 300X300 pixels
     blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 0.007843, (300, 300), 127.5)
 
-    
-    
+    network.setInput(blob)
+    detections = network.forward()
 
     pos_dict = dict()
     coordinates = dict()
@@ -84,12 +84,12 @@ while cap.isOpened():
                 # Draw bounding box for the object
                 cv2.rectangle(frame, (startX, startY), (endX, endY), bounding_box_color[class_id], 2)
 
-                label = "{}: {:.2f}%".format(labels[class_id], confidence * 100)
+                label = "{}: {:.3f}%".format(labels[class_id], confidence * 100)
                 print("{}".format(label))
 
 
                 coordinates[i] = (startX, startY, endX, endY)
-
+                coordinates[j] = (startX, startY, endX, endY)
                 # Mid point of bounding box
                 x_mid = round((startX+endX)/2,4)
                 y_mid = round((startY+endY)/2,4)
