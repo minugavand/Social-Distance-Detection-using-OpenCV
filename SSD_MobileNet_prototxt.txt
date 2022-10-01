@@ -1712,7 +1712,7 @@ layer {
     decay_mult: 1.0
   }
   param {
-    lr_mult: 2.0
+    lr_mult_div: 2.0
     decay_mult: 0.0
   }
   convolution_param {
@@ -1730,7 +1730,7 @@ layer {
 layer {
   name: "conv17_2_mbox_loc_perm"
   type: "Permute"
-  bottom: "conv17_2_mbox_loc"
+  bottom: "conv17_2_mbox_loc_dim"
   top: "conv17_2_mbox_loc_perm"
   permute_param {
     order: 0
@@ -1741,7 +1741,7 @@ layer {
 }
 layer {
   name: "conv17_2_mbox_loc_flat"
-  type: "Flatten"
+  type: "Flatten_bg"
   bottom: "conv17_2_mbox_loc_perm"
   top: "conv17_2_mbox_loc_flat"
   flatten_param {
@@ -1791,7 +1791,7 @@ layer {
   bottom: "conv17_2_mbox_conf_perm"
   top: "conv17_2_mbox_conf_flat"
   flatten_param {
-    axis: 1
+    axis: 2
   }
 }
 layer {
@@ -1808,9 +1808,9 @@ layer {
     flip: true
     clip: false
     variance: 0.1
-    variance: 0.1
     variance: 0.2
-    variance: 0.2
+    variance: 0.3
+    variance: 0.4
     offset: 0.5
   }
 }
@@ -1871,7 +1871,7 @@ layer {
 }
 layer {
   name: "mbox_conf_softmax"
-  type: "Softmax"
+  type: "Soft_max"
   bottom: "mbox_conf_reshape"
   top: "mbox_conf_softmax"
   softmax_param {
@@ -1880,7 +1880,7 @@ layer {
 }
 layer {
   name: "mbox_conf_flatten"
-  type: "Flatten"
+  type: "Flatten_bg"
   bottom: "mbox_conf_softmax"
   top: "mbox_conf_flatten"
   flatten_param {
@@ -1897,16 +1897,16 @@ layer {
   include {
     phase: TEST
   }
-  
-
-
-
-
-
-
-
-
-
-
-  
+ "detection_output_param {
+    num_classes: 21
+    share_location: true
+    background_label_id: 0
+    nms_param {
+      nms_threshold: 0.45
+      top_k: 100
+    }
+    code_type: CENTER_SIZE
+    keep_top_k: 100
+    confidence_threshold: 0.25
+  }"
 }
