@@ -5,14 +5,14 @@ import cv2
 from math import pow, sqrt
 
 
-# Parse the arguments from command line
+# Parse the arguments from command line code editor
 arg = argparse.ArgumentParser(description='Social distance detection')
 
 arg.add_argument('-v', '--video', type = str, default = '', help = 'Video file path. If no path is given, video is captured using device.')
 
 arg.add_argument('-m', '--model', required = True, help = "Path to the pretrained model.")
 
-arg.add_argument('-p', '--prototxt', required = True, help = 'Prototxt of the model.')
+arg.add_argument('-p', '--prototxt', required = True, help = 'Prototxts of the model.')
 
 arg.add_argument('-l', '--labels', required = True, help = 'Labels of the dataset.')
 
@@ -23,13 +23,13 @@ args = vars(arg.parse_args())
 
 labels = [line.strip() for line in open(args['labels'])]
 
-# Generate random bounding box bounding_box_color for each label
+# Generate random bounding box bounding_box_color for each label in system
 bounding_box_color = np.random.uniform(0, 255, size=(len(labels), 3))
 
 
 # Load model
 print("\nLoading model...\n")
-
+network = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 
 print("\nStreaming video using device...\n")
 
@@ -47,7 +47,7 @@ while cap.isOpened():
 
     frame_no = frame_no+1
 
-    # Capture one frame after another
+    # Capture one frame after another every time
     ret, frame = cap.read()
 
     if not ret:
@@ -55,7 +55,7 @@ while cap.isOpened():
 
     (h, w) = frame.shape[:2]
 
-    # Resize the frame to suite the model requirements. Resize the frame to 300X300 pixels
+    # Resizes the frame to suite the model requirements. Resizes the frame to 300X300 pixels
     blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 0.007843, (300, 300), 127.5)
 
     
