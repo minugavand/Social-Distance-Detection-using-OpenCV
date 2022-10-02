@@ -38,8 +38,7 @@ print("\nStreaming video using device...\n")
 if args['video']:
     cap = cv2.VideoCapture(args['video'])
 else:
-    
-
+    cap = cv2.VideoCapture(0)
 
 frame_no = 0
 
@@ -113,7 +112,7 @@ while cap.isOpened():
                 dist = sqrt(pow(pos_dict[i][0]-pos_dict[j][0],2) + pow(pos_dict[i][1]-pos_dict[j][1],2) + pow(pos_dict[i][2]-pos_dict[j][2],2))
 
                 # Check if distance less than 2 metres or 200 centimetres not greter or less than that
-                if dist < 200:
+                if dist < 300:
                     close_objects.add(i)
                     close_objects.add(j)
 
