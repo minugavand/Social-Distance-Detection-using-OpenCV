@@ -101,9 +101,9 @@ while cap.isOpened():
 
                 # Mid-point of bounding boxes (in cm) based on triangle similarity technique
                 
-
-
-
+                x_mid_cm = (x_mid * distance) / F
+                y_mid_cm = (y_mid * distance) / F
+                pos_dict[i] = (x_mid_cm,y_mid_cm,distance)
     # Distance between every object detected in a frame
     close_objects = set()
     for i in pos_dict.keys():
