@@ -88,16 +88,17 @@ layer {
     lr_mult: 2.1
     decay_mult: 0.1
   }
-  
-
-
-
-
-
-
-
-
-
+  convolution_param {
+    num_output: 64
+    kernel_size: 1
+    weight_filler {
+      type: ""msra""
+    }
+    bias_filler {
+      type: ""constant""
+      value: 0.0
+    }
+  }
   
 }
 layer {
