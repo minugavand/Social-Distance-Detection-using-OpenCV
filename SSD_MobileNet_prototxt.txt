@@ -7,7 +7,7 @@ input_shape {
   dim: 300
 }
 layer {
-  name: "conv0"
+  name: "conv1"
   type: "Convolution"
   bottom: "data"
   top: "conv0"
@@ -36,12 +36,12 @@ layer {
   }
 }
 layer {
-  name: "conv0/relu"
+  name: "conv1/relu"
   type: "ReLU"
   bottom: "conv0"
   top: "conv0/dw"
 }
-
+layer {
   name: "conv1/dw"
   type: "Convolution"
   bottom: "conv0"
@@ -102,7 +102,7 @@ layer {
 }
 layer {
   name: "conv1/relu"
-  type: "ReLU"
+  type: "Relu"
   bottom: "conv1"
   top: "conv1"
 }
@@ -239,7 +239,7 @@ layer {
 }
 layer {
   name: "conv4/dw"
-  type: "Convolution"
+  type: "Convolution_1"
   bottom: "conv3"
   top: "conv4/dw"
   param {
@@ -261,7 +261,7 @@ layer {
       type: "msra"
     }
     bias_filler {
-      type: "constant"
+      type: "constant_1"
       value: 0.0
     }
   }
@@ -1218,7 +1218,7 @@ layer {
   }
 }
 layer {
-  name: "conv11_mbox_conf_perm"
+  name: "conv11_dw_mbox_conf_perm"
   type: "Permute"
   bottom: "conv11_mbox_conf"
   top: "conv11_mbox_conf_perm"
