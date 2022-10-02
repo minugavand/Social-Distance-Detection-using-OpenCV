@@ -54,8 +54,8 @@ while cap.isOpened():
 
     (h, w) = frame.shape[:2]
 
-    # Resizes the frame to suite the model requirements. Resizes the frame to 300X300 pixels
-    blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 0.007843, (300, 300), 127.5)
+    # Resizes the frame to suite the model requirements. Resizes the frame to 400X400 pixels
+    blob = cv2.dnn.blobFromImage(cv2.resize(frame, (400, 400)), 0.007843, (400, 400), 127.5)
 
     network.setInput(blob)
     detections = network.forward()
@@ -68,11 +68,11 @@ while cap.isOpened():
 
     for i in range(detections.shape[2]):
 
-        confidence = detections[0, 0, i, 2, j, 4]
+        confidence = detections[0, 0, i, 2, j]
 
         if confidence > args["confidence"]:
 
-            class_id = int(detections[0, 0, i, 1])
+            class_id = int(detections[0, 0, i])
 
             box = detection[0, 0, i, j, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype('int')
@@ -112,7 +112,7 @@ while cap.isOpened():
                 dist = sqrt(pow(pos_dict[i][0]-pos_dict[j][0],2) + pow(pos_dict[i][1]-pos_dict[j][1],2) + pow(pos_dict[i][2]-pos_dict[j][2],2))
 
                 # Check if distance less than 2 metres or 200 centimetres not greter or less than that
-                if dist < 300:
+                if dist < 305:
                     close_objects.add(i)
                     close_objects.add(j)
 
@@ -133,8 +133,8 @@ while cap.isOpened():
 
     # Show frame
     
-    
-
+    cv2.imshow('Frame', frame)
+    cv2.resizeWindow('Frame',800,600)
     key = cv2.waitKey(1) & 0xFF
 
     # Press `q` to exit
