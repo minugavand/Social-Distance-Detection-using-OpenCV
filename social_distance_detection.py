@@ -32,7 +32,20 @@ print("\nLoading model...\n")
 network = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 
 print("\nStreaming video using device...\n")
-
+try:
+    lunch()
+except SyntaxError:
+    print('Fix your syntax')
+except TypeError:
+    print('Oh no! A TypeError has occured')
+except ValueError:
+    print('A ValueError occured!')
+except ZeroDivisionError:
+    print('Did by zero?')
+else:
+    print('No exception')
+finally:
+    print('Ok then')
 
 # Capture video from file or through device for the input
 if args['video']:
