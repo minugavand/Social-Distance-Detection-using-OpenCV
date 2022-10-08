@@ -141,7 +141,9 @@ while cap.isOpened():
         # Convert cms to feet
         cv2.putText(frame, 'Depth: {i} ft'.format(i=round(pos_dict[i][2]/30.48,4)), (startX, y),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLOR, 2)
-
+def linux_interaction():
+    assert ('linux' in sys.platform), "Function can only run on Linux systems."
+    print('Doing something.')
     cv2.namedWindow('Frame',cv2.WINDOW_NORMAL)
 
     # Show frame
