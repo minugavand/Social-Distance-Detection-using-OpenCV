@@ -19,3 +19,23 @@ sheep
 sofa
 train
 tvmonitor
+Pairs of jeans
+Sport shorts
+Shorts
+Skiing pants
+Shirts
+T-shirts
+Tank top
+Sweaters
+Suit (counts as 3 items)
+Winter sweater
+Jackets (summer, winter + leather jacket)
+Cap
+Beanie
+Shoes (running-, converse-, leather- and winter boots)
+Scarf
+pair of flip flops
+pair of gloves
+set of socks*
+set of boxers*
+Belt
