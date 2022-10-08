@@ -27,7 +27,11 @@ labels = [line.strip() for line in open(args['labels'])]
 # Generate random bounding box bounding_box_color for each label in system
 bounding_box_color = np.random.uniform(0, 255, size=(len(labels), 3))
 
-
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+    print('The linux_interaction() function was not executed')
 # Load model
 print("\nLoading model...\n")
 network = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
