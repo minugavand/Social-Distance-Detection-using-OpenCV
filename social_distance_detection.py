@@ -69,7 +69,12 @@ while cap.isOpened():
 
     if not ret:
         break
-
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+else:
+    print('Executing the else clause.')
     (h, w) = frame.shape[:2]
 try:
     with open('file.log') as file:
