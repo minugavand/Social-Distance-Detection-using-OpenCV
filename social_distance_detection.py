@@ -64,7 +64,12 @@ while cap.isOpened():
 
     if not ret:
         break
-
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+else:
+    print('Executing the else clause.')
     (h, w) = frame.shape[:2]
 
     # Resizes the frame to suite the model requirements. Resizes the frame to 400X400 pixels
