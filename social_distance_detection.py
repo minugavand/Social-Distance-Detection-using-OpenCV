@@ -71,7 +71,11 @@ while cap.isOpened():
         break
 
     (h, w) = frame.shape[:2]
-
+try:
+    with open('file.log') as file:
+        read_data = file.read()
+except:
+    print('Could not open file.log')
     # Resizes the frame to suite the model requirements. Resizes the frame to 400X400 pixels
     blob = cv2.dnn.blobFromImage(cv2.resize(frame, (400, 400)), 0.007843, (400, 400), 127.5)
 
