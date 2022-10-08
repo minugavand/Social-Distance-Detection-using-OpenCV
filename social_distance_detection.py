@@ -149,7 +149,18 @@ except:
         else:
             COLOR = np.array([0,255,0])
         (startX, startY, endX, endY, 0) = coordinates[i]
-
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+else:
+    try:
+        with open('file.log') as file:
+            read_data = file.read()
+    except FileNotFoundError as fnf_error:
+        print(fnf_error)
+finally:
+    print('Cleaning up, irrespective of any exceptions.')
         cv2.rectangle(frame, (startX, startY), (endX, endY), COLOR, 2)
         y = startY - 15 if startY - 15 > 15 else startY + 15
         # Convert cms to feet
