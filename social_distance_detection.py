@@ -3,7 +3,8 @@ import argparse
 import sys
 import cv2
 from math import pow, sqrt
-
+import sys
+assert ('linux' in sys.platform), "This code runs on Linux only."
 
 # Parse the arguments from command line code editor
 arg = argparse.ArgumentParser(description='Social distance detection')
