@@ -29,6 +29,9 @@ bounding_box_color = np.random.uniform(0, 255, size=(len(labels), 3))
 
 try:
     linux_interaction()
+except Exception as e:
+    print("Error:", str(e))
+
 except AssertionError as error:
     print(error)
     print('The linux_interaction() function was not executed')
@@ -51,6 +54,7 @@ K = 2
 
 # Characters which Occur in More than K Strings
 # using set() + Counter() + dictionary comprehension
+validation_datadir = '/Users/durgeshwarthakur/Deep Learning Stuff/Emotion Classification/fer2013/validation'
 res = {key for key, val in Counter([ele for sub in
 		test_list for ele in set(sub)]).items()
 		if val >= K}
@@ -58,13 +62,28 @@ res = {key for key, val in Counter([ele for sub in
 # printing result
 print ("Filtered Characters are : " + str(res))
 
+train_datagen = ImageDataGenerator(
+                 rescale=1./255,
+                 rotation_range=35,
+                 width_shift_range=0.5,
+                 height_shift_range=0.5,
+                 horizontal_flip=True,
+                 fill_mode='nearest'
+)
+
 print("\nStreaming video using device...\n")
 try:
     lunch()
+	validation_datadir = '/Users/durgeshwarthakur/Deep Learning Stuff/Emotion Classification/fer2013/validation'
+
 except SyntaxError:
     print('Fix your syntax')
 except TypeError:
     print('Oh no! A TypeError has occured')
+x = 10
+if x > 5:
+    raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
+
 except ValueError:
     print('A ValueError occured!')
 except ZeroDivisionError:
