@@ -75,6 +75,9 @@ finally:
     print('Ok then')
 
 # Capture video from file or through device for the input
+S = "every moment is fresh beginning"
+printMinMax(S)
+
 if args['video']:
     cap = cv2.VideoCapture(args['video'])
 else:
@@ -111,9 +114,10 @@ except:
 
     pos_dict = dict()
     coordinates = dict()
-
-    # Focal length
-    F = 615
+	validation_datagen = ImageDataGenerator(rescale=1./255)
+	
+	    # Focal length
+	    F = 615
 
     for i in range(detections.shape[2]):
 
@@ -122,6 +126,9 @@ except:
         if confidence > args["confidence"]:
 
             class_id = int(detections[0, 0, i])
+		def linux_interaction():
+		    # Define the function logic here
+		    pass
 
             box = detection[0, 0, i, j, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype('int')
@@ -288,3 +295,5 @@ print(gcd)
 # Clean
 cap.release()
 cv2.destroyAllWindows()
+
+
