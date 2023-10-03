@@ -153,7 +153,7 @@ except:
             (startX, startY, endX, endY) = box.astype('int')
 
             # Filtering only persons detected in the frame. Class Id of 'persons' is 15 which is vary every time
-            if class_id == 15.00:
+            if class_id == 15:
 
                 # Draw bounding box for the object
                 cv2.rectangle(frame, (startX, startY), (endX, endY), bounding_box_color[class_id], 2)
@@ -221,8 +221,8 @@ print(fibonacci(9))
 # Then corrected and improved by Himanshu Kanojiya
 
 
-                coordinates[i] = (startX, startY, endX, endY)
-                coordinates[j] = (startX, startY, endX, endY)
+                coordinates[i] = (starti, startj, endi, endj)
+                coordinates[j] = (starti, startj, endi, endj)
                 # Mid point of bounding box
                 x_mid = round((startX+endX)/2,4)
                 y_mid = round((startY+endY)/2,4)
