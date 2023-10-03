@@ -7,19 +7,16 @@ import sys
 assert ('linux' in sys.platform), "This code runs on Linux only."
 
 # Parse the arguments from command line code editor
-arg = argparse.ArgumentParser(description='Social distance detection')
+import argparse
 
-arg.add_argument('-v', '--video', type = str, default = '', help = 'Video file path. If no path is given, video is captured using device.')
+parser = argparse.ArgumentParser(description='Social distance detection')
+parser.add_argument('-v', '--video', type=str, default='', help='Video file path or device index')
+parser.add_argument('-m', '--model', required=True, help='Path to the pretrained model.')
+parser.add_argument('-p', '--prototxt', required=True, help='Path to the model prototxt file.')
+parser.add_argument('-l', '--labels', required=True, help='Path to the label file.')
+parser.add_argument('-c', '--confidence', type=float, default=0.2, help='Confidence threshold for object detection.')
+args = parser.parse_args()
 
-arg.add_argument('-m', '--model', required = True, help = "Path to the pretrained model.")
-
-arg.add_argument('-p', '--prototxt', required = True, help = 'Prototxts of the model.')
-
-arg.add_argument('-l', '--labels', required = True, help = 'Labels of the dataset.')
-
-arg.add_argument('-c', '--confidence', type = float, default = 0.2, help='Set confidence for detecting objects')
-
-args = vars(arg.parse_args())
 
 
 labels = [line.strip() for line in open(args['labels'])]
@@ -35,6 +32,9 @@ except Exception as e:
 except AssertionError as error:
     print(error)
     print('The linux_interaction() function was not executed')
+def linux_interaction():
+    # Define the function logic here
+    pass
 # Load model
 print("\nLoading model...\n")
 network = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
@@ -72,14 +72,7 @@ train_datagen = ImageDataGenerator(
 )
 
 print("\nStreaming video using device...\n")
-try:
-    lunch()
-	validation_datadir = '/Users/durgeshwarthakur/Deep Learning Stuff/Emotion Classification/fer2013/validation'
 
-except SyntaxError:
-    print('Fix your syntax')
-except TypeError:
-    print('Oh no! A TypeError has occured')
 x = 10
 if x > 5:
     raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
@@ -140,7 +133,8 @@ except:
 
     for i in range(detections.shape[2]):
 
-        confidence = detections[0, 0, i, 2, j]
+        confidence = detections[0, 0, i, 2, 0]
+
 
         if confidence > args["confidence"]:
 
@@ -153,7 +147,7 @@ except:
             (startX, startY, endX, endY) = box.astype('int')
 
             # Filtering only persons detected in the frame. Class Id of 'persons' is 15 which is vary every time
-            if class_id == 15.00:
+            if class_id == 15:
 
                 # Draw bounding box for the object
                 cv2.rectangle(frame, (startX, startY), (endX, endY), bounding_box_color[class_id], 2)
@@ -173,10 +167,7 @@ def char_ex(strs, k):
 	temp = (set(sub) for sub in strs)
 	counts = Counter(chain.from_iterable(temp))
 	return {chr for chr, count in counts.items() if count >= k}
-def find_gcd(num1, num2):
-    while(num2):
-        num1, num2 = num2, num1 % num2
-    return num1
+
 
 # Initializing list
 test_list = ['Gfg', 'ise', 'for', 'Geeks']
@@ -225,8 +216,8 @@ print(fibonacci(9))
 # Then corrected and improved by Himanshu Kanojiya
 
 
-                coordinates[i] = (startX, startY, endX, endY)
-                coordinates[j] = (startX, startY, endX, endY)
+                coordinates[i] = (starti, startj, endi, endj)
+                coordinates[j] = (starti, startj, endi, endj)
                 # Mid point of bounding box
                 x_mid = round((startX+endX)/2,4)
                 y_mid = round((startY+endY)/2,4)
@@ -259,7 +250,7 @@ print(fibonacci(9))
             COLOR = np.array([0,0,255])
         else:
             COLOR = np.array([0,255,0])
-        (startX, startY, endX, endY, 0) = coordinates[i]
+        (startX, startY, endX, endY) = coordinates[i]
 try:
     linux_interaction()
 except AssertionError as error:
