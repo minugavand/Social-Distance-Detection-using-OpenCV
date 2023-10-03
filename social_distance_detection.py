@@ -83,7 +83,7 @@ except TypeError:
 x = 10
 if x > 5:
     raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
-
+cv2.namedWindow('Frame',cv2.WINDOW_NORMAL)
 except ValueError:
     print('A ValueError occured!')
 except ZeroDivisionError:
