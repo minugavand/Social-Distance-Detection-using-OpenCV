@@ -72,14 +72,7 @@ train_datagen = ImageDataGenerator(
 )
 
 print("\nStreaming video using device...\n")
-try:
-    lunch()
-	validation_datadir = '/Users/durgeshwarthakur/Deep Learning Stuff/Emotion Classification/fer2013/validation'
 
-except SyntaxError:
-    print('Fix your syntax')
-except TypeError:
-    print('Oh no! A TypeError has occured')
 x = 10
 if x > 5:
     raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
