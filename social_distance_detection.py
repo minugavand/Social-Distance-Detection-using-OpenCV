@@ -47,6 +47,11 @@ from collections import Counter
 test_list = ['Gfg', 'ise', 'for', 'Geeks']
 
 # printing original list
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+
 print("The original list is : " + str(test_list))
 
 # Initializing K
