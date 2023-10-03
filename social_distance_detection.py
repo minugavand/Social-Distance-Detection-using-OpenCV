@@ -173,6 +173,10 @@ def char_ex(strs, k):
 	temp = (set(sub) for sub in strs)
 	counts = Counter(chain.from_iterable(temp))
 	return {chr for chr, count in counts.items() if count >= k}
+def find_gcd(num1, num2):
+    while(num2):
+        num1, num2 = num2, num1 % num2
+    return num1
 
 # Initializing list
 test_list = ['Gfg', 'ise', 'for', 'Geeks']
