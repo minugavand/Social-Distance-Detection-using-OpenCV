@@ -255,7 +255,7 @@ print(fibonacci(9))
             COLOR = np.array([0,0,255])
         else:
             COLOR = np.array([0,255,0])
-        (startX, startY, endX, endY, 0) = coordinates[i]
+        (startX, startY, endX, endY) = coordinates[i]
 try:
     linux_interaction()
 except AssertionError as error:
