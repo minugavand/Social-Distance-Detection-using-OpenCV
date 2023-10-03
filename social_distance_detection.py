@@ -35,6 +35,9 @@ except Exception as e:
 except AssertionError as error:
     print(error)
     print('The linux_interaction() function was not executed')
+def linux_interaction():
+    # Define the function logic here
+    pass
 # Load model
 print("\nLoading model...\n")
 network = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
@@ -83,6 +86,9 @@ except TypeError:
 x = 10
 if x > 5:
     raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
+def linux_interaction():
+    # Define the function logic here
+    pass
 
 except ValueError:
     print('A ValueError occured!')
