@@ -140,7 +140,8 @@ except:
 
     for i in range(detections.shape[2]):
 
-        confidence = detections[0, 0, i, 2, j]
+        confidence = detections[0, 0, i, 2, 0]
+
 
         if confidence > args["confidence"]:
 
