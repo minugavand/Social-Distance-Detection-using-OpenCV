@@ -7,19 +7,16 @@ import sys
 assert ('linux' in sys.platform), "This code runs on Linux only."
 
 # Parse the arguments from command line code editor
-arg = argparse.ArgumentParser(description='Social distance detection')
+import argparse
 
-arg.add_argument('-v', '--video', type = str, default = '', help = 'Video file path. If no path is given, video is captured using device.')
+parser = argparse.ArgumentParser(description='Social distance detection')
+parser.add_argument('-v', '--video', type=str, default='', help='Video file path or device index')
+parser.add_argument('-m', '--model', required=True, help='Path to the pretrained model.')
+parser.add_argument('-p', '--prototxt', required=True, help='Path to the model prototxt file.')
+parser.add_argument('-l', '--labels', required=True, help='Path to the label file.')
+parser.add_argument('-c', '--confidence', type=float, default=0.2, help='Confidence threshold for object detection.')
+args = parser.parse_args()
 
-arg.add_argument('-m', '--model', required = True, help = "Path to the pretrained model.")
-
-arg.add_argument('-p', '--prototxt', required = True, help = 'Prototxts of the model.')
-
-arg.add_argument('-l', '--labels', required = True, help = 'Labels of the dataset.')
-
-arg.add_argument('-c', '--confidence', type = float, default = 0.2, help='Set confidence for detecting objects')
-
-args = vars(arg.parse_args())
 
 
 labels = [line.strip() for line in open(args['labels'])]
@@ -86,9 +83,6 @@ except TypeError:
 x = 10
 if x > 5:
     raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
-def linux_interaction():
-    # Define the function logic here
-    pass
 
 except ValueError:
     print('A ValueError occured!')
