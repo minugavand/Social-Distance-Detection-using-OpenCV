@@ -55,6 +55,17 @@ K = 2
 # Characters which Occur in More than K Strings
 # using set() + Counter() + dictionary comprehension
 validation_datadir = '/Users/durgeshwarthakur/Deep Learning Stuff/Emotion Classification/fer2013/validation'
+def lunch():
+    # Define the function logic here
+    pass
+
+try:
+    lunch()
+except SyntaxError:
+    print('Fix your syntax')
+except TypeError:
+    print('Oh no! A TypeError has occurred')
+
 res = {key for key, val in Counter([ele for sub in
 		test_list for ele in set(sub)]).items()
 		if val >= K}
