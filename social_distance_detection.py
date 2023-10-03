@@ -113,6 +113,10 @@ while cap.isOpened():
 
     if not ret:
         break
+def linux_interaction():
+    assert ('linux' in sys.platform), "Function can only run on Linux systems."
+    print('Doing something.')
+
 try:
     linux_interaction()
 except AssertionError as error:
